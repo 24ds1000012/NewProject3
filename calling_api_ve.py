@@ -14,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 # Load environment variables
+os.environ["TRANSFORMERS_CACHE"] = "/tmp/huggingface"
 load_dotenv()
 OPENAI_API_KEY = os.getenv("API_KEY_NEW")
 env_path = find_dotenv()  # Finds the .env file path
