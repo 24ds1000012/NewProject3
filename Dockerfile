@@ -1,16 +1,41 @@
 FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy files
 COPY . /app
 
-# Install dependencies
+RUN apt-get update && apt-get install -y \
+    wget \
+    libnss3 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libpangocairo-1.0-0 \
+    libpango-1.0-0 \
+    libglib2.0-0 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxss1 \
+    libxext6 \
+    libxi6 \
+    fonts-liberation \
+    libappindicator3-1 \
+    xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port
+RUN pip install playwright
+RUN playwright install
+
 EXPOSE 8000
 
-# Run the FastAPI app with uvicorn
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
