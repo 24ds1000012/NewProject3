@@ -5,6 +5,14 @@ import os, re, logging
 from openai import OpenAI
 from dotenv import load_dotenv, find_dotenv
 import uvicorn
+
+# Set before importing sentence-transformers or transformers
+os.environ["TRANSFORMERS_CACHE"] = "/tmp/huggingface"
+os.environ["HF_HOME"] = "/tmp/huggingface"
+os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface/datasets"
+os.environ["TORCH_HOME"] = "/tmp/huggingface/torch"
+os.environ["SENTENCE_TRANSFORMERS_HOME"] = "/tmp/huggingface"
+
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
@@ -14,7 +22,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 # Load environment variables
-os.environ["TRANSFORMERS_CACHE"] = "/tmp/huggingface"
 load_dotenv()
 OPENAI_API_KEY = os.getenv("API_KEY_NEW")
 env_path = find_dotenv()  # Finds the .env file path
