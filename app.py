@@ -21,13 +21,17 @@ import json
 from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables
-load_dotenv()
+#load_dotenv()
 OPENAI_API_KEY = os.getenv("API_KEY_NEW")
 env_path = find_dotenv()  # Finds the .env file path
 print("Using .env file at:", env_path)
 DISCOURSE_EMAIL = os.getenv("DISCOURSE_EMAIL")
 DISCOURSE_PASSWORD = os.getenv("DISCOURSE_PASSWORD")
-DEBUG_MODE = os.getenv("DEBUG", "false").lower() == "true"
+DEBUG_MODE = os.getenv("DEBUG", "false").lower() == "true"  
+
+print("API_KEY_NEW:", OPENAI_API_KEY)
+print("DISCOURSE_EMAIL:", DISCOURSE_EMAIL)
+print("DISCOURSE_PASSWORD:", DISCOURSE_PASSWORD)
 
 # Configure logging
 logging.basicConfig(
