@@ -1,9 +1,0 @@
-#!/bin/bash
-
-echo "Running postBuild setup..."
-
-# Set environment variable so the browser installs in the expected location
-export PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
-
-# Install Chromium with all dependencies
-playwright install --with-deps chromium
