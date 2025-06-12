@@ -84,7 +84,7 @@ class QAResponse(BaseModel):
 
 async def scrape_discourse_post(url: str) -> str:
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=not DEBUG_MODE, channel="chrome")
+        browser = await p.chromium.launch(headless=not DEBUG_MODE)
         context = await browser.new_context()
         page = await context.new_page()
         try:
