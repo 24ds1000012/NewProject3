@@ -2,8 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY . /app
-
+# Install required dependencies for Playwright + Chromium
 RUN apt-get update && apt-get install -y \
     wget \
     curl \
@@ -33,15 +32,17 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+COPY . /app
+
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install playwright
 
-# Install Chromium properly
-RUN playwright install --with-deps chromium
+# Install Playwright and Chromium browser
+RUN pip install playwright && \
+    playwright install --with-deps chromium
 
-# Hugging Face Spaces sometimes misses cache — add this as fallback
-ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
+# Optionally clean up
+RUN rm -rf /root/.cache/pip
 
 EXPOSE 7860
 
