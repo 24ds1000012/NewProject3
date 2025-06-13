@@ -230,8 +230,8 @@ Include relevant links from the content if possible.
         markdown_link_pattern = re.compile(r'\[([^\]]+)\]\((https?://[^\s)]+)\)')
         matches = markdown_link_pattern.findall(answer_text)
         links = [{"url": url, "text": text} for text, url in matches]
-
-        return {"answer": answer_text, "links": links}
+        response_links = links or [{"url": request.link, "text": "Related Discourse post"}] if request.link else []
+        return {"answer": answer_text, "links": response_links}
 
     except Exception as e:
         logging.exception("OpenAI API call failed")
